@@ -13,7 +13,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, client) => {
 	// db.collection('Todos').find({
 	// 	_id: new ObjectID("5b4ba3249e04b103e8075723")
 
-	db.collection('Users').find({_id: new ObjectID("5b4ba3249e04b103e8075723")}).toArray().then((docs) => {
+	db.collection('Users').find({name:"John"}).toArray().then((docs) => {
 		console.log("Todos:");
 		console.log(JSON.stringify(docs, undefined, 2));
 	}, (err) => {
