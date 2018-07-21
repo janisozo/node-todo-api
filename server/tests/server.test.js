@@ -112,7 +112,7 @@ describe('DELETE /todos/:id', () => {
 			.delete(`/todos/${newId}`)
 			.expect(200)
 			.expect((res) => {
-				expect(res.body.todo._id = newId);
+				expect(res.body.todo._id).toBe(newId);
 			})
 			.end((err, res) => {
 				if (err) {
