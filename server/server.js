@@ -8,6 +8,7 @@ const {ObjectID} = require('mongodb');
 var {mongoose} = require("./db/mongoose.js");
 const {Todo} = require('./models/todo.js');
 const {user} = require('./models/user.js');
+const {authenticate} = require('./middleware/authenticate');
 
 var app = express();
 const port = process.env.PORT || 3000;
@@ -62,6 +63,12 @@ app.get('/todos/:id', (req, res) => {
 	}).catch((e) => {
 		res.status(400).send();
 	});
+});
+
+
+
+app.get('/users/me', authenticate, (req, res) => {
+	res.send(req.user);
 });
 
 app.delete('/todos/:id', (req, res) => {
