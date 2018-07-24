@@ -113,6 +113,25 @@ app.patch('/todos/:id', (req, res) => {
 	});
 });
 
+// POST /users/login {email, password}
+// pass in email, password, send it back too
+
+app.post('/users/login', (req, res) => {
+	var body = _.pick(req.body, ['email', 'password']);
+
+	// user.findOne({body}).then(user) => {
+	// 	res.send(user);
+	// };
+
+	user.findByCredentials(body.email, body.password).then((user) => {
+		return user.generateAuthToken().then((token) => {
+			res.header('x-auth', token).send(user);
+		});
+	}).catch((e) => {
+		res.status(401).send('Wrong email or password');
+	})
+});
+
 app.listen(port, () => {
 	console.log(`Started on port ${port}`);
 });
